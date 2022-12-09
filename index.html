@@ -7,26 +7,27 @@
     <title>V360 TO DO LIST</title>
     <link rel="stylesheet" type="text/css" media="screen" href="./src/css/style.css">
 </head>
-
 <body>
-    <div class="container">
-        <h1>V360 TO DO LIST</h1>
-        <input id="newTask" type="text">
-        <button onclick=createTask()>Incluir</button>
-
-        <div id="list">
-
-
+    <div class="V360_todolist">
+     
+        <div class="title">
+            V360 TO DO LIST
         </div>
 
-
-
+        <div class="new_item">
+        <!--  <div>&and;</div> -->
+            <input type="text" placeholder="Digite e pressione enter para criar a tarefa">
+        <!--   <div>&and;</div> -->
+        </div>      
+        
+        <div class="list" id="todoList">
+            <label class="item">
+                <input type="checkbox">
+                <input type="button" value="x">
+            </label>
+        </div>
+        
     </div>
-
-
-
-</body>
-
-<script src="./src/js/task.js"></script>
 <script src="./src/js/todolist.js"></script>
+</body>
 </html>
