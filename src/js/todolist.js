@@ -1,8 +1,9 @@
 let bancoDados = [
-    {'tarefa':'Estudar JS', 'status': ''},
-    {'tarefa':'Estudar CSS', 'status': ''},
-    {'tarefa':'Estudar HTML', 'status': 'checked'}
+  
 ];
+
+const pegarBanco = () => JSON.parse(localStorage.getItem('todoList')) ?? [];
+const enviarBanco = (bancoDados) => localStorage.setItem('todoList', JSON.stringify(bancoDados));
 
 
 const criarItem = (tarefa, status, indice) => {
@@ -24,6 +25,7 @@ const limparTarefas = () => {
 
 const atualizarPagina = () => {
     limparTarefas();
+    const bancoDados = pegarBanco();
     bancoDados.forEach((item, indice) => criarItem(item.tarefa, item.status, indice));
 }
 
@@ -31,21 +33,27 @@ const adicionarItem = (evento) => {
     const tecla = evento.key;
     const texto = evento.target.value;
     if(tecla === 'Enter') {
+    const bancoDados = pegarBanco();
     bancoDados.push({'tarefa': texto, 'status': ''});
+    enviarBanco(bancoDados);
     atualizarPagina();
     evento.target.value = ''; //limpa a tarefa
     }
 }
 
 const removerItem = (indice) => {
+    const bancoDados = pegarBanco();
     bancoDados.splice (indice, 1);
+    enviarBanco(bancoDados);
     atualizarPagina();
 
 }
 
 
 const atualizarItem = (indice) => {
+    const bancoDados = pegarBanco();
     bancoDados[indice].status = bancoDados[indice].status === '' ? 'checked' : '';
+    enviarBanco(bancoDados);
     atualizarPagina();
 
 }
