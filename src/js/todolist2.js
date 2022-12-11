@@ -1,7 +1,7 @@
 let bancoDados = [];
 
-const pegarBanco = () => JSON.parse(localStorage.getItem('todoListas')) ?? [];
-const enviarBanco = (bancoDados) => localStorage.setItem('todoListas', JSON.stringify(bancoDados));
+const pegarBanco = () => JSON.parse(localStorage.getItem('todoList')) ?? [];
+const enviarBanco = (bancoDados) => localStorage.setItem('todoList', JSON.stringify(bancoDados));
 
 
 
@@ -15,7 +15,7 @@ const criarLista = (lista, statusLista, indiceLista) => {
     document.getElementById('todoListas').appendChild(itemLista);
 }
 
-/*
+
 const criarItem = (tarefa, status, indice) => {
     const item = document.createElement('label');
     item.classList.add('item');
@@ -25,7 +25,7 @@ const criarItem = (tarefa, status, indice) => {
         `
     document.getElementById('todoList').appendChild(item);
 }
-*/
+
 
 const limparListas = () => {
     const todoListas = document.getElementById('todoListas');
@@ -33,21 +33,21 @@ const limparListas = () => {
         todoListas.removeChild(todoListas.lastChild)
     }
 }
-/*
+
 const limparTarefas = () => {
     const todoList = document.getElementById('todoList');
     while(todoList.firstChild) {
         todoList.removeChild(todoList.lastChild)
     }
 }
-*/
+
 
 const atualizarPagina = () => {
     limparListas();
-    //limparTarefas();
+    limparTarefas();
     const bancoDados = pegarBanco();
     bancoDados.forEach((itemLista) => (criarLista(itemLista.lista, itemLista.statusLista, itemLista.indiceLista)));
-    //bancoDados.forEach((item) => (criarItem(item.tarefa, item.status, item.indice)));
+    bancoDados.forEach((item) => (criarItem(item.tarefa, item.status, item.indice)));
     //bancoDados.forEach((itemLista,item) => (criarLista(itemLista.tarefa, itemLista.status, itemLista.indiceLista),criarItem(item.tarefa, item.status, item.indice)));
     //bancoDados.forEach((itemLista) => (criarLista(itemLista.tarefa, itemLista.status, itemLista.indiceLista)));
 }
@@ -65,7 +65,7 @@ const adicionarLista = (evento) => {
     }
 }
 
-/*
+
 const adicionarItem = (evento) => {
     const tecla = evento.key;
     const texto = evento.target.value;
@@ -77,7 +77,7 @@ const adicionarItem = (evento) => {
     evento.target.value = ''; //llimpa descrição onde cria a tarefa
     }
 }
-*/
+
 
 const removerLista = (indiceLista) => {
     const bancoDados = pegarBanco();
@@ -87,7 +87,7 @@ const removerLista = (indiceLista) => {
 
 }
 
-/*
+
 const removerItem = (indice) => {
     const bancoDados = pegarBanco();
     bancoDados.splice (indice, 1);
@@ -96,7 +96,7 @@ const removerItem = (indice) => {
 
 }
 
-*/
+
 
 const atualizarLista = (indiceLista) => {
     const bancoDados = pegarBanco();
@@ -106,7 +106,7 @@ const atualizarLista = (indiceLista) => {
 
 }
 
-/*
+
 const atualizarItem = (indice) => {
     const bancoDados = pegarBanco();
     bancoDados[indice].status = bancoDados[indice].status === '' ? 'checked' : '';
@@ -115,20 +115,6 @@ const atualizarItem = (indice) => {
 
 }
 
-*/
-
-const clickItemLista = (evento) => {
-    const elementoLista = evento.target;
-    if (elementoLista.type === 'button') {
-        const indiceLista = elementoLista.dataset.indiceLista;
-        removerLista(indiceLista);
-    }
-    else if (elementoLista.type === 'checkbox') {
-        const indiceLista = elementoLista.dataset.indiceLista;
-       atualizarLista(indiceLista);
-    }
-}
-/*
 
 const clickItem = (evento) => {
     const elemento = evento.target;
@@ -142,15 +128,24 @@ const clickItem = (evento) => {
     }
 }
 
-*/
 
+const clickItemLista = (evento) => {
+    const elementoLista = evento.target;
+    if (elementoLista.type === 'button') {
+        const indiceLista = elementoLista.dataset.indiceLista;
+        removerItem(indiceLista);
+    }
+    else if (elementoLista.type === 'checkbox') {
+        const indiceLista = elemento.dataset.indiceLista;
+        atualizarItem(indiceLista);
+    }
+}
 
 
 document.getElementById('newList').addEventListener('keypress', adicionarLista);
-//document.getElementById('newItem').addEventListener('keypress', adicionarItem);
+document.getElementById('newItem').addEventListener('keypress', adicionarItem);
+document.getElementById('todoList').addEventListener('click', clickItem);
 document.getElementById('todoListas').addEventListener('click', clickItemLista);
-//document.getElementById('todoList').addEventListener('click', clickItem);
-
 
 
 atualizarPagina();
