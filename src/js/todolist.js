@@ -1,5 +1,4 @@
 let bancoDados = [
-  
 ];
 
 const pegarBanco = () => JSON.parse(localStorage.getItem('todoList')) ?? [];
