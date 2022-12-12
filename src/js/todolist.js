@@ -7,10 +7,10 @@ const enviarBanco = (bancoDados) => localStorage.setItem('todoListas', JSON.stri
 
 const criarLista = (lista, statusLista, indiceLista) => {
     const itemLista = document.createElement('label');
-    itemLista.classList.add('item');
-    itemLista.innerHTML = `<input type="checkbox" ${statusLista} data-indice=${indiceLista}>
+    itemLista.classList.add('itemLista');
+    itemLista.innerHTML = `<input type="checkbox" ${statusLista} data-indiceLista=${indiceLista}>
         <div>${lista}</div>
-        <input type="button" value="X" data-indice=${indiceLista}>
+        <input type="button" value="X" data-indiceLista=${indiceLista}>
         `
     document.getElementById('todoListas').appendChild(itemLista);
 }
@@ -61,7 +61,7 @@ const adicionarLista = (evento) => {
     bancoDados.push({'lista': textoLista, 'status': ''});
     enviarBanco(bancoDados);
     atualizarPagina();
-    evento.target.value = ''; //limpa descrição onde cria a lista
+    evento.target.value = ''; //limpa a descrição onde digita o nome da lista após a lista ser criada
     }
 }
 
@@ -81,7 +81,7 @@ const adicionarItem = (evento) => {
 
 const removerLista = (indiceLista) => {
     const bancoDados = pegarBanco();
-    bancoDados.splice (indiceLista, 1);
+    bancoDados.splice(indiceLista, 1);
     enviarBanco(bancoDados);
     atualizarPagina();
 
@@ -114,10 +114,10 @@ const atualizarItem = (indice) => {
     atualizarPagina();
 
 }
-
 */
 
-const clickItemLista = (evento) => {
+
+const clickLista = (evento) => {
     const elementoLista = evento.target;
     if (elementoLista.type === 'button') {
         const indiceLista = elementoLista.dataset.indiceLista;
@@ -128,8 +128,8 @@ const clickItemLista = (evento) => {
        atualizarLista(indiceLista);
     }
 }
-/*
 
+/*
 const clickItem = (evento) => {
     const elemento = evento.target;
     if (elemento.type === 'button') {
@@ -141,8 +141,8 @@ const clickItem = (evento) => {
         atualizarItem(indice);
     }
 }
-
 */
+
 
 
 

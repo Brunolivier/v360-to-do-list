@@ -49,7 +49,7 @@ body {
     gap: 10px;
 }
 
-.item{
+.itemLista{
     display: flex;
     width: 100%;
     height: 50px;
@@ -59,11 +59,11 @@ body {
     box-shadow: 1px 1px 5px var(--secondary-color);
 }
 
-.item > div {
+.itemLista > div {
     width: 100%;
 }
 
-.item:hover {
+.itemLista:hover {
     cursor: pointer;
     transition: all .5s ease;
     background-color: var(--secondary-color);
@@ -71,25 +71,23 @@ body {
 }
 
 
-.item > input[type='text'] {
+.itemLista > input[type='text'] {
     border: none;
     width: 100%;
     font: inherit;
 }
 
-.item > input[type='button'],
-.item > input[type='checkbox'] {
+.itemLista > input[type='button'],
+.itemLista > input[type='checkbox'] {
     width: 30px;
     height: 30px;
     font: inherit;
 }
 
 
-.item > input[type='checkbox']:checked  + div {
+.itemLista > input[type='checkbox']:checked  + div {
     text-decoration:line-through;
 }
-
-
 
 
 .new_list{
