@@ -19,7 +19,7 @@ body {
     font: bold 2rem 'Open Sans', sans-serif;
 }
 
-.todo {
+.V360_todolist {
     display: flex;
     width: 50vw;
     flex-direction: column;

@@ -1,3 +1,5 @@
+'use strict';
+
 let bancoDados = [];
 
 const pegarBanco = () => JSON.parse(localStorage.getItem('todoListas')) ?? [];
@@ -5,12 +7,12 @@ const enviarBanco = (bancoDados) => localStorage.setItem('todoListas', JSON.stri
 
 
 
-const criarLista = (lista, statusLista, indiceLista) => {
+const criarLista = (lista, status, indice) => {
     const itemLista = document.createElement('label');
     itemLista.classList.add('itemLista');
-    itemLista.innerHTML = `<input type="checkbox" ${statusLista} data-indiceLista=${indiceLista}>
+    itemLista.innerHTML = `<input type="checkbox" ${status} data-indice=${indice}>
         <div>${lista}</div>
-        <input type="button" value="X" data-indiceLista=${indiceLista}>
+        <input type="button" value="X" data-indice=${indice}>
         `
     document.getElementById('todoListas').appendChild(itemLista);
 }
@@ -33,6 +35,7 @@ const limparListas = () => {
         todoListas.removeChild(todoListas.lastChild)
     }
 }
+
 /*
 const limparTarefas = () => {
     const todoList = document.getElementById('todoList');
@@ -46,7 +49,7 @@ const atualizarPagina = () => {
     limparListas();
     //limparTarefas();
     const bancoDados = pegarBanco();
-    bancoDados.forEach((itemLista) => (criarLista(itemLista.lista, itemLista.statusLista, itemLista.indiceLista)));
+    bancoDados.forEach((itemLista, indice) => criarLista(itemLista.lista, itemLista.status, indice));
     //bancoDados.forEach((item) => (criarItem(item.tarefa, item.status, item.indice)));
     //bancoDados.forEach((itemLista,item) => (criarLista(itemLista.tarefa, itemLista.status, itemLista.indiceLista),criarItem(item.tarefa, item.status, item.indice)));
     //bancoDados.forEach((itemLista) => (criarLista(itemLista.tarefa, itemLista.status, itemLista.indiceLista)));
@@ -58,7 +61,7 @@ const adicionarLista = (evento) => {
     const textoLista = evento.target.value;
     if(teclaLista === 'Enter') {
     const bancoDados = pegarBanco();
-    bancoDados.push({'lista': textoLista, 'status': ''});
+    bancoDados.push({'lista': textoLista, 'statusLista': ''});
     enviarBanco(bancoDados);
     atualizarPagina();
     evento.target.value = ''; //limpa a descrição onde digita o nome da lista após a lista ser criada
@@ -79,9 +82,9 @@ const adicionarItem = (evento) => {
 }
 */
 
-const removerLista = (indiceLista) => {
+const removerLista = (indice) => {
     const bancoDados = pegarBanco();
-    bancoDados.splice(indiceLista, 1);
+    bancoDados.splice(indice, 1);
     enviarBanco(bancoDados);
     atualizarPagina();
 
@@ -98,13 +101,15 @@ const removerItem = (indice) => {
 
 */
 
-const atualizarLista = (indiceLista) => {
+
+const atualizarLista = (indice) => {
     const bancoDados = pegarBanco();
-    bancoDados[indiceLista].statusLista = bancoDados[indiceLista].statusLista === '' ? 'checked' : '';
+    bancoDados[indice].status = bancoDados[indice].status === '' ? 'checked' : '';
     enviarBanco(bancoDados);
     atualizarPagina();
 
 }
+
 
 /*
 const atualizarItem = (indice) => {
@@ -120,12 +125,12 @@ const atualizarItem = (indice) => {
 const clickLista = (evento) => {
     const elementoLista = evento.target;
     if (elementoLista.type === 'button') {
-        const indiceLista = elementoLista.dataset.indiceLista;
+        const indiceLista = elementoLista.dataset.indice;
         removerLista(indiceLista);
     }
     else if (elementoLista.type === 'checkbox') {
-        const indiceLista = elementoLista.dataset.indiceLista;
-       atualizarLista(indiceLista);
+        const indice = elementoLista.dataset.indice;
+       atualizarLista(indice);
     }
 }
 
@@ -148,7 +153,7 @@ const clickItem = (evento) => {
 
 document.getElementById('newList').addEventListener('keypress', adicionarLista);
 //document.getElementById('newItem').addEventListener('keypress', adicionarItem);
-document.getElementById('todoListas').addEventListener('click', clickItemLista);
+document.getElementById('todoListas').addEventListener('click', clickLista);
 //document.getElementById('todoList').addEventListener('click', clickItem);
 
 
