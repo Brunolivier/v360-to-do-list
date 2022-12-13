@@ -148,6 +148,8 @@ const clickItemLista = (evento) => {
 
 */
 
+
+
 //document.getElementById('newList').addEventListener('keypress', adicionarLista);
 document.getElementById('newItem').addEventListener('keypress', adicionarItem);
 document.getElementById('todoList').addEventListener('click', clickItem);

@@ -12,7 +12,9 @@ const criarLista = (lista, status, indice) => {
     itemLista.classList.add('itemLista');
     itemLista.innerHTML = `<input type="checkbox" ${status} data-indice=${indice}>
         <div>${lista}</div>
+        <input type="submit" value="Tarefas" data-indice=${indice}>
         <input type="button" value="X" data-indice=${indice}>
+        
         `
     document.getElementById('todoListas').appendChild(itemLista);
 }
@@ -128,6 +130,10 @@ const clickLista = (evento) => {
         const indiceLista = elementoLista.dataset.indice;
         removerLista(indiceLista);
     }
+    if (elementoLista.type === 'submit') {
+        window.location.href = 'index2.html'
+       ;
+    }
     else if (elementoLista.type === 'checkbox') {
         const indice = elementoLista.dataset.indice;
        atualizarLista(indice);
@@ -147,8 +153,6 @@ const clickItem = (evento) => {
     }
 }
 */
-
-
 
 
 document.getElementById('newList').addEventListener('keypress', adicionarLista);
