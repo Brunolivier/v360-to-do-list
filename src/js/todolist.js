@@ -154,7 +154,6 @@ const clickItem = (evento) => {
 }
 */
 
-
 document.getElementById('newList').addEventListener('keypress', adicionarLista);
 //document.getElementById('newItem').addEventListener('keypress', adicionarItem);
 document.getElementById('todoListas').addEventListener('click', clickLista);
