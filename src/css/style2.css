@@ -84,7 +84,7 @@ body {
     font: inherit;
 }
 
-
+/*  quando clicar na caixa checkbox(label) para marcar ele vai "riscar" */
 .item > input[type='checkbox']:checked  + div {
     text-decoration:line-through;
 }
