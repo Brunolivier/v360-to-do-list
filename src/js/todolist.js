@@ -2,7 +2,7 @@
 
 // cria o banco de dados que é um array de objetos
 let bancoDados = [];
-
+let list = [];
 const pegarBanco = () => JSON.parse(localStorage.getItem('todoListas')) ?? [];
 const enviarBanco = (bancoDados) => localStorage.setItem('todoListas', JSON.stringify(bancoDados));
 
@@ -22,7 +22,7 @@ const criarLista = (lista, status, indice) => {
 
 const limparListas = () => {
     const todoListas = document.getElementById('todoListas');
-    while(todoListas.firstChild) {
+    while (todoListas.firstChild) {
         todoListas.removeChild(todoListas.lastChild)
     }
 }
@@ -32,36 +32,52 @@ const limparListas = () => {
 const atualizarPagina = () => {
     limparListas();
     const bancoDados = pegarBanco();
-    bancoDados.forEach((itemLista, indice) => criarLista(itemLista.lista, itemLista.status, indice));
+    bancoDados.forEach((itemLista, indice) => criarLista(itemLista.lista, itemLista.statusLista, itemLista.id));
 }
 
 // funcao que vai inserir a lista quando for pressionado a tecla "enter"
 const adicionarLista = (evento) => {
     const teclaLista = evento.key;
     const textoLista = evento.target.value;
-    if(teclaLista === 'Enter') {
-    const bancoDados = pegarBanco();
-    bancoDados.push({'lista': textoLista, 'statusLista': ''});
-    enviarBanco(bancoDados); // envia para o banco de dados 
-    atualizarPagina(); 
-    evento.target.value = ''; // limpa a descrição onde digita o nome da lista após a lista ser criada
+    if (teclaLista === 'Enter') {
+        const bancoDados = pegarBanco();
+        let id = Math.floor(Math.random() * 100);
+        bancoDados.forEach(dados => {
+            if (dados.id == id) {
+                id = Math.floor(Math.random() * 100); // cria um id de número inteiro para a lista
+            }
+        });
+        bancoDados.push({ 'id': id, 'lista': textoLista, 'statusLista': '', 'items': []});
+        enviarBanco(bancoDados); // envia para o banco de dados 
+
+        atualizarPagina();
+        evento.target.value = ''; // limpa a descrição onde digita o nome da lista após a lista ser criada
     }
+}
+
+
+// pega o inde   para remover e atualizar a lista
+const getIndexLista = (idLista) => {
+    const bancoDados = pegarBanco();
+    let indexLista = bancoDados.findIndex(list => 
+        list.id == idLista);
+    return indexLista;
 }
 
 
 // funcao que remove do banco de dados a lista que sera removida conforme o clique do u(indice)
 const removerLista = (indice) => {
     const bancoDados = pegarBanco();
-    bancoDados.splice(indice, 1);
+    bancoDados.splice(getIndexLista(indice), 1);
     enviarBanco(bancoDados);
-    atualizarPagina(); 
+    atualizarPagina();
 }
 
 
 // funcao que marca como "check" ou desmarca conforme o clique do usuário pelo índice
 const atualizarLista = (indice) => {
     const bancoDados = pegarBanco();
-    bancoDados[indice].status = bancoDados[indice].status === '' ? 'checked' : '';
+    bancoDados[getIndexLista(indice)].statusLista = bancoDados[getIndexLista(indice)].statusLista === '' ? 'checked' : '';
     enviarBanco(bancoDados);
     atualizarPagina();
 
@@ -78,13 +94,14 @@ const clickLista = (evento) => {
     }
     // vai para a pagina com as tarefas
     if (elementoLista.type === 'submit') {
-        window.location.href = 'index2.html'
-       ;
+        let newPath = window.location.href.replace('index.html','index2.html')
+        let url = new URL(newPath+'?listId='+elementoLista.dataset.indice);
+        window.location.href = url;
     }
     // marcar como "check" ou desmarca o "check"
     else if (elementoLista.type === 'checkbox') {
         const indice = elementoLista.dataset.indice;
-       atualizarLista(indice);
+        atualizarLista(indice);
     }
 }
 

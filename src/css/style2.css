@@ -3,7 +3,6 @@
     --secondary-color: #ffffff;
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -70,7 +69,6 @@ body {
     color: var(--primary-color);
 }
 
-
 .item > input[type='text'] {
     border: none;
     width: 100%;
@@ -88,7 +86,6 @@ body {
 .item > input[type='checkbox']:checked  + div {
     text-decoration:line-through;
 }
-
 
 .new_item{
     display: flex;
