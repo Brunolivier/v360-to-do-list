@@ -13,8 +13,8 @@ const criarLista = (lista, status, indice) => {
     itemLista.classList.add('itemLista');
     itemLista.innerHTML = `<input type="checkbox" ${status} data-indice=${indice}>
         <div>${lista}</div>
-        <input type="submit" value="Tarefas" data-indice=${indice}>
-        <input type="button" value="X" data-indice=${indice}>   
+        <input type="submit" class="btn btn-primary" value="Tarefas" data-indice=${indice}>
+        <input type="button" class="btn btn-danger" value="X" data-indice=${indice}>   
         `
     document.getElementById('todoListas').appendChild(itemLista); // adiciona um item(lista)
 }

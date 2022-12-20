@@ -13,7 +13,7 @@ const criarItem = (tarefa, status, indice) => {
     item.classList.add('item');
     item.innerHTML = `<input type="checkbox" ${status} data-indice=${indice}>
         <div>${tarefa}</div>
-        <input type="button" value="X" data-indice=${indice}>
+        <input type="button" class="btn btn-danger" value="X" data-indice=${indice}>
         `
     document.getElementById('todoList').appendChild(item);
 }
